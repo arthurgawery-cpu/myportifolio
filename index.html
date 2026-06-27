@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio | Arthur</title>
+    <style>
+        /* Reset Premium */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body, html {
+            height: 100%;
+            font-family: 'Inter', sans-serif;
+            background-color: #02040a;
+            color: #f8fafc;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- O FUNDO CÓSMICO --- */
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at 30% 40%, #081229 0%, #02040a 70%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 1px, transparent 35px),
+                radial-gradient(rgba(56, 189, 248, 0.3), rgba(0,0,0,0) 2px, transparent 40px);
+            background-size: 300px 300px, 250px 250px;
+            opacity: 0.4;
+        }
+
+        /* Estrutura do Portfólio */
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        /* HEADER / HERO SECTION */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .hero p {
+            color: #38bdf8;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3.5rem, 8vw, 6rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #f8fafc 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h2 {
+            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+            line-height: 1.7;
+            color: #94a3b8;
+            font-weight: 300;
+            max-width: 700px;
+            margin-bottom: 40px;
+        }
+        
+        .hero h2 strong {
+            color: #e2e8f0;
+            font-weight: 600;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            background: linear-gradient(135deg, #38bdf8 0%, #2563eb 100%);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.6);
+        }
+
+        /* SECTION TITLES */
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 50px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .section-title::after {
+            content: "";
+            height: 1px;
+            flex: 1;
+            background: linear-gradient(to right, rgba(56,189,248,0.5), transparent);
+        }
+
+        /* PROJECTS SECTION */
+        .projects {
+            padding: 100px 0 50px 0;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 30px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 4px;
+            background: linear-gradient(90deg, #38bdf8, #2563eb);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .featured-card::before {
+            transform: scaleX(1);
+            background: linear-gradient(90deg, #facc15, #f59e0b);
+            box-shadow: 0 0 15px rgba(250, 204, 21, 0.5);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.1);
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .project-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #e2e8f0;
+        }
+        
+        .featured-card h3 {
+            background: linear-gradient(to right, #fef08a, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .project-card p {
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+            flex-grow: 1;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .tech-tag {
+            background: rgba(56, 189, 248, 0.1);
+            color: #38bdf8;
+            font-size: 0.8rem;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .featured-card .tech-tag {
+            background: rgba(250, 204, 21, 0.1);
+            color: #facc15;
+        }
+
+        /* --- CONTACT / COMISSÕES --- */
+        .contact-section {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(88, 101, 242, 0.3);
+            border-radius: 16px;
+            padding: 50px 30px;
+            text-align: center;
+            margin: 50px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #f8fafc;
+            margin-bottom: 15px;
+        }
+
+        .contact-section p {
+            color: #94a3b8;
+            font-size: 1.05rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .discord-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 35px;
+            background: #5865F2; /* Cor oficial do Discord */
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.3);
+        }
+
+        .discord-btn:hover {
+            transform: translateY(-3px);
+            background: #4752C4;
+            box-shadow: 0 8px 25px rgba(88, 101, 242, 0.5);
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: #475569;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="cosmic-bg">
+        <div class="stars"></div>
+    </div>
+
+    <div class="container">
+        
+        <!-- Apresentação Principal -->
+        <section class="hero">
+            <p>E aí, eu sou o</p>
+            <h1>Arthur</h1>
+            <h2>
+                Sou dev e curto criar de tudo um pouco: desde <strong>bots dinâmicos</strong> pro Discord até <strong>sites irados</strong>. No momento, meu maior foco é desenvolver meu próprio jogo, o <strong>Lucky Forgee</strong>.
+            </h2>
+            <a href="#projetos" class="btn">Dá uma olhada nos meus projetos</a>
+        </section>
+
+        <!-- Seção de Projetos -->
+        <section id="projetos" class="projects">
+            <h2 class="section-title">O que eu ando fazendo</h2>
+            
+            <div class="projects-grid">
+                
+                <div class="project-card featured-card">
+                    <h3>Lucky Forgee (Em Desenvolvimento)</h3>
+                    <p>Meu projeto do coração hoje. Tô criando esse jogo do zero, pensando em cada mecânica e detalhe pra garantir que fique exatamente como imaginei. Logo mais solto umas novidades!</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Game Dev</span>
+                        <span class="tech-tag">Design</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <h3>Ticket Bot Global</h3>
+                    <p>Desenvolvi um bot em Node.js focado em atendimento. O sistema de tickets foi montado pra aguentar o tranco e funcionar liso em todos os servidores ao mesmo tempo, sem dar dor de cabeça.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">Discord API</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <h3>Volleyball Legends</h3>
+                    <p>Fiz essa plataforma pra dar um help na parte tática do jogo. Tem formações, rotinas de treino e botei várias imagens extras pra galera do time conseguir visualizar as estratégias de boa.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Front-end</span>
+                        <span class="tech-tag">UI / UX</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Seção de Contato / Comissões -->
+        <section class="contact-section">
+            <h2>Minhas comissões estão abertas! 🚀</h2>
+            <p>Tá precisando de um bot personalizado, um site maneiro ou quer trocar uma ideia sobre algum trabalho freelance? Chama lá no Discord e vamo desenrolar isso.</p>
+            <!-- Substituí a hashtag pelo padrão de link de perfil, mas no PC/Mobile o usuário geralmente copia o nick -->
+            <a href="https://discord.com/users/turzin_72" target="_blank" class="discord-btn">
+                <svg width="24" height="24" viewBox="0 0 127.14 96.36" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.14c2.64-27.38-4.51-51.11-18.9-72.15ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.31,60,73.31,53s5-12.74,11.43-12.74S96.2,46,96.12,53,91.08,65.69,84.69,65.69Z"/>
+                </svg>
+                turzin_72
+            </a>
+        </section>
+
+        <footer>
+            <p>Site feito por mim mesmo ✌️ • 2026</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
